@@ -165,7 +165,7 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>最近公司部署平台，搭建了windows server 2008 R2操作系统的服务器，开始的时候正常，可是破解完系统之后，经常莫名期末的司机，查看日志文件发现，是Windows Licensing Monitoring Service服务的问题，这服务是Windows软件许可状态。任务管理器查看又wlms.exe进程。使用C:\Windows\system32\wlms\wlms.exe程序关闭系统，日志中显示是他为你关闭电源。</p>
+                <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>最近公司部署平台，搭建了windows server 2008 R2操作系统的服务器，开始的时候正常，可是破解完系统之后，经常莫名奇妙的死机，查看日志文件发现，是Windows Licensing Monitoring Service服务的问题，这服务是Windows软件许可状态。任务管理器查看又wlms.exe进程。使用C:\Windows\system32\wlms\wlms.exe程序关闭系统，日志中显示是他为你关闭电源。</p>
 <h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>把以下内容另存为.bat文件，当每次开机后，右击这个文件，以管理员身份运行，这样系统就不会自动关机了。</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">taskkill /f /im wlms.exe</div><div class="line"></div><div class="line">ping -n  4 127.0.0.1</div><div class="line"></div><div class="line">shutdown -a</div></pre></td></tr></table></figure>
 <p>注：我用的系统是windows server 2008 r2 x64,在别的版本上没有试过，不知是否有用。</p>
