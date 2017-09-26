@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        我有一个同事｜Fanfengxiang&#39;s blog
+        scala 学习(一)｜Fanfengxiang&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://Fanfengxiang.github.io/2017/09/22/我有一个同事/">
+    <link rel="canonical" href="http://Fanfengxiang.github.io/2017/09/26/scala学习笔记/scala-学习1/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -137,12 +137,12 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>我有一个同事</h1>
+                    <h1>scala 学习(一)</h1>
                     
                     <span class="meta">
                          作者 Fanfengxiang
                         <span>
-                          日期 2017-09-22
+                          日期 2017-09-26
                          </span>
                     </span>
                     <div class="tags text-center">
@@ -154,7 +154,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            我有一个同事
+            scala 学习(一)
         </span>
     </div>
 </header>
@@ -165,23 +165,25 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <p>我有一个同事：<a href="https://daihuiblog.github.io" target="_blank" rel="external">戴狗</a>。</p>
-<p>他有一个网站：<a href="http://www.daihui888.com" target="_blank" rel="external">你懂的</a>。</p>
-
+                <p>参考教程<a href="https://yq.aliyun.com/topic/69" target="_blank" rel="external">阿里云栖社区</a></p>
+<h2 id="Scala基本类型"><a href="#Scala基本类型" class="headerlink" title="Scala基本类型"></a>Scala基本类型</h2><p>Scala的基本数据类型与Java中的基本数据类型是一一对应的，不同的是Scala的基本数据类型头字母必须大写</p>
+<h4 id="常用特殊字符包括"><a href="#常用特殊字符包括" class="headerlink" title="常用特殊字符包括"></a>常用特殊字符包括</h4><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">\n 换行符，其Unicode编码为 (\u000A) </div><div class="line">\b 回退符，其Unicode编码为 (\u0008) </div><div class="line">\t tab制表符 ，其Unicode编码(\u0009) </div><div class="line">\” 双引号，其Unicode编码为 (\u0022) </div><div class="line">\’ 单引号，其Unicode编码为 (\u0027) </div><div class="line">\ 反斜杆，其Unicode编码为(\u005C)</div></pre></td></tr></table></figure>
+<h2 id="Scala基本类型操作"><a href="#Scala基本类型操作" class="headerlink" title="Scala基本类型操作"></a>Scala基本类型操作</h2><p>在Scala中一切操作皆方法，这意味着Scala中的一切皆为对象</p>
+<h5 id="算术操作："><a href="#算术操作：" class="headerlink" title="算术操作："></a>算术操作：</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//整数求和，编译器会将其转换为(1).+(2)执行</div><div class="line">scala&gt; var sumVlaue=1+2</div><div class="line">sumVlaue: Int = 3</div><div class="line"></div><div class="line">//前一语句等同于下列语句</div><div class="line">scala&gt; var sumVlaue=(1).+(2)</div><div class="line">sumVlaue: Int = 3</div></pre></td></tr></table></figure>
+<h2 id="Scala程序控制结构"><a href="#Scala程序控制结构" class="headerlink" title="Scala程序控制结构"></a>Scala程序控制结构</h2><p>while 与 do while 的区别是 后者会先执行一次循环</p>
+<h5 id="if-的使用："><a href="#if-的使用：" class="headerlink" title="if 的使用："></a>if 的使用：</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">val x= if(&quot;hello&quot;==&quot;hell&quot;)  1 else 0</div></pre></td></tr></table></figure>
+<h5 id="while-的使用："><a href="#while-的使用：" class="headerlink" title="while 的使用："></a>while 的使用：</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">def gcdLoop(x: Long, y: Long): Long = &#123;</div><div class="line">        var a = x</div><div class="line">        var b = y</div><div class="line">        while (a != 0) &#123;</div><div class="line">            val temp = a</div><div class="line">            a = b % a</div><div class="line">            b = temp</div><div class="line">        &#125; </div><div class="line">        b</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h5 id="do-while的使用"><a href="#do-while的使用" class="headerlink" title="do while的使用"></a>do while的使用</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">var line = &quot;&quot;</div><div class="line">do &#123;</div><div class="line">    line = readLine()</div><div class="line">    println(&quot;Read: &quot;+ line)</div><div class="line">&#125; while (line != &quot;&quot;)</div></pre></td></tr></table></figure>
+<h5 id="for循环的使用"><a href="#for循环的使用" class="headerlink" title="for循环的使用"></a>for循环的使用</h5><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">//还可以加入多个if过滤条件，用;隔开</div><div class="line">//每次循环将结果保留，当整个循环执行完毕，所有保留的值将会生成一个集合并返回</div><div class="line">//Array[File]到Array[Int]的转换</div><div class="line">scala&gt; val forLineLengths =</div><div class="line">     | for &#123;</div><div class="line">     | file &lt;- filesHere</div><div class="line">     | if file.getName.endsWith(&quot;.scala&quot;)</div><div class="line">     | line &lt;- fileLines(file)</div><div class="line">     | trimmed = line.trim</div><div class="line">     | if trimmed.matches(&quot;.*for.*&quot;)</div><div class="line">     | &#125; yield trimmed.length</div><div class="line">forLineLengths: Array[Int] = Array()</div></pre></td></tr></table></figure>
                 <hr>
                 
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2017/09/26/windows-server-2008-R2-自动关机/" data-toggle="tooltip" data-placement="top"
-                           title="windows server 2008 R2 自动关机">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/2017/09/22/第一篇博客/" data-toggle="tooltip" data-placement="top"
-                           title="Ambari 离线安装 （1）">Next Post &rarr;</a>
+                        <a href="/2017/09/26/windows-server-2008-R2-自动关机/" data-toggle="tooltip" data-placement="top"
+                           title="windows server 2008 R2 自动关机">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -216,7 +218,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Scala基本类型"><span class="toc-text">Scala基本类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#常用特殊字符包括"><span class="toc-text">常用特殊字符包括</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scala基本类型操作"><span class="toc-text">Scala基本类型操作</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#算术操作："><span class="toc-text">算术操作：</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Scala程序控制结构"><span class="toc-text">Scala程序控制结构</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#if-的使用："><span class="toc-text">if 的使用：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#while-的使用："><span class="toc-text">while 的使用：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#do-while的使用"><span class="toc-text">do while的使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#for循环的使用"><span class="toc-text">for循环的使用</span></a></li></ol></li></ol></li></ol></li></ol>
                 </div>
             </div>
         </div>

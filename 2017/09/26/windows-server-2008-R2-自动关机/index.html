@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        Fanfengxiang&#39;s blog
+        windows server 2008 R2 自动关机｜Fanfengxiang&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://Fanfengxiang.github.io/archives/">
+    <link rel="canonical" href="http://Fanfengxiang.github.io/2017/09/26/windows-server-2008-R2-自动关机/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -43,7 +43,7 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="" class="animated fadeIn">
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="false
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
 " data-ishome = "false" >
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -115,119 +115,153 @@
 </script>
 
 <!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://fanfengxiang.github.io/image/title.jpg">
+
+
 <style>
-    .intro-header .site-heading {
-        margin: 50px;
-    }
     
     header.intro-header {
         background-image: url('http://fanfengxiang.github.io/image/title.jpg')
     }
+
     
 </style>
 
-<!-- Page Header -->
 <header class="intro-header">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading text-center">
-                    <h1>archives</h1>
-                    <span class="subheading">可以根据归档日期检索所有文件</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>windows server 2008 R2 自动关机</h1>
+                    
+                    <span class="meta">
+                         作者 Fanfengxiang
+                        <span>
+                          日期 2017-09-26
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="post-title-haojen">
+        <span>
+            windows server 2008 R2 自动关机
+        </span>
+    </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <!-- archive list -->
-            
-				
-				
-				
-					
-					
-					<div class="archive archive-year" data-date="2017">
-						<h2 class="archive-title">
-						<span class="fa fa-archive">
-							<a href="/archives/2017">2017</a>
-						</span>
-						</h2>
-				
-				
-					
-					
-					<div class="archive archive-month" data-date="201709">
-						<h3 class="archive-title">
-							<a href="/archives/2017/09">09</a>
-						</h3>
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/09/26/scala学习笔记/scala-学习1/">
-                        <h4 class="post-title">
-                            scala 学习(一)
-                        </h4>
-                        
-                    </a>
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>最近公司部署平台，搭建了windows server 2008 R2操作系统的服务器，开始的时候正常，可是破解完系统之后，经常莫名奇妙的死机，查看日志文件发现，是Windows Licensing Monitoring Service服务的问题，这服务是Windows软件许可状态。任务管理器查看又wlms.exe进程。使用C:\Windows\system32\wlms\wlms.exe程序关闭系统，日志中显示是他为你关闭电源。</p>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>把以下内容另存为.bat文件，当每次开机后，右击这个文件，以管理员身份运行，这样系统就不会自动关机了。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">taskkill /f /im wlms.exe</div><div class="line"></div><div class="line">ping -n  4 127.0.0.1</div><div class="line"></div><div class="line">shutdown -a</div></pre></td></tr></table></figure>
+<p>注：我用的系统是windows server 2008 r2 x64,在别的版本上没有试过，不知是否有用。</p>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>通过使用PSTOOLS工具进入SYSTEM用户执行regedit.exe,然后修改WLSMS服务项，将启动类型由02（自动）改为04（禁用），并修改加载的EXE位置，这样WINDOWS 2008 R2启动就不会加载认证服务了。<br>相关工具：PSTOOLS，网上有下载的<a href="http://pstools.en.softonic.com/download;下载后将psexec.exe进程拷贝倒system32文件夹下，然后通过运行命令执行" target="_blank" rel="external">http://pstools.en.softonic.com/download;下载后将psexec.exe进程拷贝倒system32文件夹下，然后通过运行命令执行</a></p>
+<p>命令格式：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">psexec.exe -d -i -s regedit.exe</div></pre></td></tr></table></figure></p>
+<p>后，打开注册表进入特权模式，将</p>
+<p>注册表项：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WLMS]</div></pre></td></tr></table></figure></p>
+<p>的start参数的值改成4即可，然后重启服务器，查看任务管理器是否还存在wlms.exe进程，如果存在则证明没有修改成功，如果不存在则表示修改成功。</p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/09/26/scala学习笔记/scala-学习1/" data-toggle="tooltip" data-placement="top"
+                           title="scala 学习(一)">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/09/22/我有一个同事/" data-toggle="tooltip" data-placement="top"
+                           title="我有一个同事">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
                 </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/09/26/windows-server-2008-R2-自动关机/">
-                        <h4 class="post-title">
-                            windows server 2008 R2 自动关机
-                        </h4>
-                        
-                    </a>
+                <!-- City版安装代码已完成 -->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前提"><span class="toc-text">前提</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法一"><span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法二"><span class="toc-text">方法二</span></a></li></ol></li></ol>
                 </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/09/22/我有一个同事/">
-                        <h4 class="post-title">
-                            我有一个同事
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/09/22/第一篇博客/">
-                        <h4 class="post-title">
-                            Ambari 离线安装 （1）
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
+            </div>
         </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
     </div>
+</article>
+
+
+
+
+
+
 
 <!-- Footer -->
 <!-- Footer -->
