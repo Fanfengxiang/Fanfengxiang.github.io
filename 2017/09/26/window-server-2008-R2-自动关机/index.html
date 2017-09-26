@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        我有一个同事｜Fanfengxiang&#39;s blog
+        windows server 2008 R2 自动关机｜Fanfengxiang&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://Fanfengxiang.github.io/2017/09/22/我有一个同事/">
+    <link rel="canonical" href="http://Fanfengxiang.github.io/2017/09/26/window-server-2008-R2-自动关机/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -137,12 +137,12 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
                 <div class="post-heading">
-                    <h1>我有一个同事</h1>
+                    <h1>windows server 2008 R2 自动关机</h1>
                     
                     <span class="meta">
                          作者 Fanfengxiang
                         <span>
-                          日期 2017-09-22
+                          日期 2017-09-26
                          </span>
                     </span>
                     <div class="tags text-center">
@@ -154,7 +154,7 @@
     </div>
     <div class="post-title-haojen">
         <span>
-            我有一个同事
+            windows server 2008 R2 自动关机
         </span>
     </div>
 </header>
@@ -165,23 +165,25 @@
         <div class="row">
             <!-- Post Container -->
             <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
-                <p>我有一个同事：<a href="https://daihuiblog.github.io" target="_blank" rel="external">戴狗</a>。</p>
-<p>他有一个网站：<a href="http://www.daihui888.com" target="_blank" rel="external">你懂的</a>。</p>
+                <h2 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h2><p>最近公司部署平台，搭建了windows server 2008 R2操作系统的服务器，开始的时候正常，可是破解完系统之后，经常莫名期末的司机，查看日志文件发现，是Windows Licensing Monitoring Service服务的问题，这服务是Windows软件许可状态。任务管理器查看又wlms.exe进程。使用C:\Windows\system32\wlms\wlms.exe程序关闭系统，日志中显示是他为你关闭电源。</p>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>把以下内容另存为.bat文件，当每次开机后，右击这个文件，以管理员身份运行，这样系统就不会自动关机了。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">taskkill /f /im wlms.exe</div><div class="line"></div><div class="line">ping -n  4 127.0.0.1</div><div class="line"></div><div class="line">shutdown -a</div></pre></td></tr></table></figure>
+<p>注：我用的系统是windows server 2008 r2 x64,在别的版本上没有试过，不知是否有用。</p>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p>通过使用PSTOOLS工具进入SYSTEM用户执行regedit.exe,然后修改WLSMS服务项，将启动类型由02（自动）改为04（禁用），并修改加载的EXE位置，这样WINDOWS 2008 R2启动就不会加载认证服务了。<br>相关工具：PSTOOLS，网上有下载的<a href="http://pstools.en.softonic.com/download;下载后将psexec.exe进程拷贝倒system32文件夹下，然后通过运行命令执行" target="_blank" rel="external">http://pstools.en.softonic.com/download;下载后将psexec.exe进程拷贝倒system32文件夹下，然后通过运行命令执行</a></p>
+<p>命令格式：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">psexec.exe -d -i -s regedit.exe</div></pre></td></tr></table></figure></p>
+<p>后，打开注册表进入特权模式，将</p>
+<p>注册表项：<br><figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\WLMS]</div></pre></td></tr></table></figure></p>
+<p>的start参数的值改成4即可，然后重启服务器，查看任务管理器是否还存在wlms.exe进程，如果存在则证明没有修改成功，如果不存在则表示修改成功。</p>
 
                 <hr>
                 
 
                 <ul class="pager">
                     
-                    <li class="previous">
-                        <a href="/2017/09/26/window-server-2008-R2-自动关机/" data-toggle="tooltip" data-placement="top"
-                           title="windows server 2008 R2 自动关机">&larr; Previous Post</a>
-                    </li>
-                    
                     
                     <li class="next">
-                        <a href="/2017/09/22/第一篇博客/" data-toggle="tooltip" data-placement="top"
-                           title="Ambari 离线安装 （1）">Next Post &rarr;</a>
+                        <a href="/2017/09/22/我有一个同事/" data-toggle="tooltip" data-placement="top"
+                           title="我有一个同事">Next Post &rarr;</a>
                     </li>
                     
                 </ul>
@@ -216,7 +218,7 @@
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前提"><span class="toc-text">前提</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法一"><span class="toc-text">方法一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方法二"><span class="toc-text">方法二</span></a></li></ol></li></ol>
                 </div>
             </div>
         </div>
