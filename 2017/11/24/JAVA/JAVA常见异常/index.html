@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="樊凤祥在 Github 上的个人博客">
+    <meta name="keyword" content="">
+    <meta name="theme-color" content="#600090">
+    <meta name="msapplication-navbutton-color" content="#600090">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#600090">
+    <link rel="shortcut icon" href="https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-person-128.png">
+    <link rel="alternate" type="application/atom+xml" title="樊凤祥" href="/atom.xml">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
+    <title>
+        
+        docker工具｜Fanfengxiang&#39;s blog
+        
+    </title>
+
+    <link rel="canonical" href="http://Fanfengxiang.github.io/2017/11/24/JAVA/JAVA常见异常/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/blog-style.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+</head>
+
+<style>
+
+    header.intro-header {
+        background-image: url('http://fanfengxiang.github.io/image/title.jpg')
+    }
+</style>
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="" class="animated fadeIn">
+<!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
+" data-ishome = "false" >
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand animated pulse" href="/">
+                <span class="brand-logo">
+                    樊凤祥
+                </span>
+                's Blog
+            </a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <!-- Known Issue, found by Hux:
+            <nav>'s height woule be hold on by its content.
+            so, when navbar scale out, the <nav> will cover tags.
+            also mask any touch event of tags, unfortunately.
+        -->
+        <!-- /.navbar-collapse -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+					
+                    
+					
+					
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+//    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    $toggle.addEventListener('click', handleMagic)
+    function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+</script>
+
+<!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://fanfengxiang.github.io/image/title.jpg">
+
+
+<style>
+    
+    header.intro-header {
+        background-image: url('http://fanfengxiang.github.io/image/title.jpg')
+    }
+
+    
+</style>
+
+<header class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>docker工具</h1>
+                    
+                    <span class="meta">
+                         作者 Fanfengxiang
+                        <span>
+                          日期 2017-11-24
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="post-title-haojen">
+        <span>
+            docker工具
+        </span>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <h4 id="1-java-lang-NullPointerException-空指针异常"><a href="#1-java-lang-NullPointerException-空指针异常" class="headerlink" title="1. java.lang.NullPointerException(空指针异常)"></a>1. java.lang.NullPointerException(空指针异常)</h4><h2 id="调用了未经初始化的对象或者是不存在的对象"><a href="#调用了未经初始化的对象或者是不存在的对象" class="headerlink" title="调用了未经初始化的对象或者是不存在的对象"></a>调用了未经初始化的对象或者是不存在的对象</h2><p>经常出现在创建图片，调用数组这些操作中，比如图片未经初始化，或者图片创建时的路径错误等等。对数组操作中出现空指针，<br>即把数组的初始化和数组元素的初始化混淆起来了。数组的初始化是对数组分配需要的空间，而初始化后的数组，其中的元素并没有实例化，<br>依然是空的，所以还需要对每个元素都进行初始化（如果要调用的话）。</p>
+<h4 id="2-java-lang-ClassNotFoundException"><a href="#2-java-lang-ClassNotFoundException" class="headerlink" title="2. java.lang.ClassNotFoundException　　"></a>2. java.lang.ClassNotFoundException　　</h4><h2 id="指定的类不存在"><a href="#指定的类不存在" class="headerlink" title="指定的类不存在"></a>指定的类不存在</h2><p>这里主要考虑一下类的名称和路径是否正确即可，通常都是程序试图通过字符串来加载某个类时可能引发 异常<br>比如：调用Class.forName();<br>或者调用ClassLoad的finaSystemClass();或者LoadClass();</p>
+<h4 id="3-java-lang-NumberFormatException"><a href="#3-java-lang-NumberFormatException" class="headerlink" title="3. java.lang.NumberFormatException"></a>3. java.lang.NumberFormatException</h4><p>##字符串转换为数字异常<br>当试图将一个String转换为指定的数字类型，而该字符串确不满足数字类型要求的格式时，抛出该异常.如现在讲字符型的数据“123456”转换为数值型数据时，是允许的。<br>但是如果字符型数据中包含了非数字型的字符，如123#56，此时转换为数值型时就会出现异常。系统就会捕捉到这个异常，并进行处理.</p>
+<h4 id="4-java-lang-IndexOutOfBoundsException"><a href="#4-java-lang-IndexOutOfBoundsException" class="headerlink" title="4. java.lang.IndexOutOfBoundsException"></a>4. java.lang.IndexOutOfBoundsException</h4><h2 id="数组下标越界异常"><a href="#数组下标越界异常" class="headerlink" title="数组下标越界异常"></a>数组下标越界异常</h2><p>查看调用的数组或者字符串的下标值是不是超出了数组的范围，一般来说，显示（即直接用常数当下标）调用不太容易出这样的错，但隐式（即用变量表示下标）调用就经常出错了，还有一种情况，是程序中定义的数组的长度是通过某些特定方法决定的，不是事先声明的，这个时候，最好先查看一下数组的length，以免出现这个异常。</p>
+<h4 id="5-java-lang-IllegalArgumentException"><a href="#5-java-lang-IllegalArgumentException" class="headerlink" title="5. java.lang.IllegalArgumentException"></a>5. java.lang.IllegalArgumentException</h4><h2 id="方法的参数错误"><a href="#方法的参数错误" class="headerlink" title="方法的参数错误"></a>方法的参数错误</h2><p>比如g.setColor(int red,int green,int blue)这个方法中的三个值，如果有超过２５５的也会出现这个异常，因此一旦发现这个异常，我们要做的，就是赶紧去检查一下方法调用中的参数传递是不是出现了错误。</p>
+<h4 id="6-java-lang-IllegalAccessException"><a href="#6-java-lang-IllegalAccessException" class="headerlink" title="6. java.lang.IllegalAccessException"></a>6. java.lang.IllegalAccessException</h4><h2 id="没有访问权限"><a href="#没有访问权限" class="headerlink" title="没有访问权限"></a>没有访问权限</h2><p>当应用程序要调用一个类，但当前的方法即没有对该类的访问权限便会出现这个异常。对程序中用了Package的情况下要注意这个异常</p>
+<h4 id="7-java-lang-ArithmeticException"><a href="#7-java-lang-ArithmeticException" class="headerlink" title="7. java.lang.ArithmeticException"></a>7. java.lang.ArithmeticException</h4><h2 id="数学运算异常"><a href="#数学运算异常" class="headerlink" title="数学运算异常"></a>数学运算异常</h2><p>当算术运算中出现了除以零这样的运算就会出这样的异常。</p>
+<h4 id="8-java-lang-ClassCastException"><a href="#8-java-lang-ClassCastException" class="headerlink" title="8. java.lang.ClassCastException"></a>8. java.lang.ClassCastException</h4><h2 id="数据类型转换异常"><a href="#数据类型转换异常" class="headerlink" title="数据类型转换异常"></a>数据类型转换异常</h2><p>当试图将对某个对象强制执行向下转型，但该对象又不可转换又不可转换为其子类的实例时将引发该异常，如下列代码。</p>
+<p>1<br>2<br>3<br>Object obj = new Integer(0);<br>String str = obj;</p>
+<h4 id="9-java-lang-FileNotFoundException"><a href="#9-java-lang-FileNotFoundException" class="headerlink" title="9. java.lang.FileNotFoundException"></a>9. java.lang.FileNotFoundException</h4><h2 id="文件未找到异常"><a href="#文件未找到异常" class="headerlink" title="文件未找到异常"></a>文件未找到异常</h2><p>当程序试图打开一个不存在的文件进行读写时将会引发该异常。该异常由FileInputStream,FileOutputStream,RandomAccessFile的构造器声明抛出</p>
+<p>即使被操作的文件存在，但是由于某些原因不可访问，比如打开一个只读文件进行写入，这些构造方法仍然会引发异常</p>
+<h4 id="10-java-lang-ArrayStoreException"><a href="#10-java-lang-ArrayStoreException" class="headerlink" title="10. java.lang.ArrayStoreException"></a>10. java.lang.ArrayStoreException</h4><h2 id="数组存储异常"><a href="#数组存储异常" class="headerlink" title="数组存储异常"></a>数组存储异常</h2><p>当试图将类型不兼容类型的对象存入一个Object[]数组时将引发异常</p>
+<p>1<br>2<br>3<br>Object[] obj = new String[3];<br>obj[0] = new Integer(0);</p>
+<h4 id="11-java-lang-NoSuchMethodException"><a href="#11-java-lang-NoSuchMethodException" class="headerlink" title="11. java.lang.NoSuchMethodException"></a>11. java.lang.NoSuchMethodException</h4><h2 id="方法不存在异常"><a href="#方法不存在异常" class="headerlink" title="方法不存在异常"></a>方法不存在异常</h2><p>当程序试图通过反射来创建对象，访问(修改或读取)某个方法，但是该方法不存在就会引发异常</p>
+<h4 id="12-java-lang-NoSuchFiledException"><a href="#12-java-lang-NoSuchFiledException" class="headerlink" title="12. java.lang.NoSuchFiledException"></a>12. java.lang.NoSuchFiledException</h4><h2 id="方法不存在异常-1"><a href="#方法不存在异常-1" class="headerlink" title="方法不存在异常"></a>方法不存在异常</h2><p>当程序试图通过反射来创建对象，访问(修改或读取)某个filed，但是该filed不存在就会引发异常</p>
+<h4 id="13-java-lang-EOFException"><a href="#13-java-lang-EOFException" class="headerlink" title="13. java.lang.EOFException"></a>13. java.lang.EOFException</h4><h2 id="文件已结束异常"><a href="#文件已结束异常" class="headerlink" title="文件已结束异常"></a>文件已结束异常</h2><p>当程序在输入的过程中遇到文件或流的结尾时，引发异常。因此该异常用于检查是否达到文件或流的结尾</p>
+<h4 id="14-java-lang-InstantiationException"><a href="#14-java-lang-InstantiationException" class="headerlink" title="14. java.lang.InstantiationException"></a>14. java.lang.InstantiationException</h4><h2 id="实例化异常"><a href="#实例化异常" class="headerlink" title="实例化异常"></a>实例化异常</h2><p>当试图通过Class的newInstance()方法创建某个类的实例,但程序无法通过该构造器来创建该对象时引发</p>
+<p>Class对象表示一个抽象类，接口，数组类，基本类型<br>该Class表示的类没有对应的构造器</p>
+<h4 id="15-java-lang-InterruptedException"><a href="#15-java-lang-InterruptedException" class="headerlink" title="15. java.lang.InterruptedException"></a>15. java.lang.InterruptedException</h4><h2 id="被中止异常"><a href="#被中止异常" class="headerlink" title="被中止异常"></a>被中止异常</h2><p>当某个线程处于长时间的等待、休眠或其他暂停状态，而此时其他的线程通过Thread的interrupt方法终止该线程时抛出该异常。</p>
+<h4 id="16-java-lang-CloneNotSupportedException"><a href="#16-java-lang-CloneNotSupportedException" class="headerlink" title="16. java.lang.CloneNotSupportedException"></a>16. java.lang.CloneNotSupportedException</h4><h2 id="不支持克隆异常"><a href="#不支持克隆异常" class="headerlink" title="不支持克隆异常"></a>不支持克隆异常</h2><p>当没有实现Cloneable接口或者不支持克隆方法时,调用其clone()方法则抛出该异常。</p>
+<h4 id="17-java-lang-OutOfMemoryException"><a href="#17-java-lang-OutOfMemoryException" class="headerlink" title="17. java.lang.OutOfMemoryException"></a>17. java.lang.OutOfMemoryException</h4><p>##内存不足错误<br>当可用内存不足以让Java虚拟机分配给一个对象时抛出该错误。</p>
+<h4 id="18-java-lang-NoClassDefFoundException"><a href="#18-java-lang-NoClassDefFoundException" class="headerlink" title="18. java.lang.NoClassDefFoundException"></a>18. java.lang.NoClassDefFoundException</h4><h2 id="未找到类定义错误"><a href="#未找到类定义错误" class="headerlink" title="未找到类定义错误"></a>未找到类定义错误</h2><p>当Java虚拟机或者类装载器试图实例化某个类，而找不到该类的定义时抛出该错误。</p>
+<p>违背安全原则异常：SecturityException<br>操作数据库异常：SQLException<br>输入输出异常：IOException<br>通信异常：SocketException</p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/09/26/scala学习笔记/scala-学习1/" data-toggle="tooltip" data-placement="top"
+                           title="scala 学习(一)">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
+                </div>
+                <!-- City版安装代码已完成 -->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-java-lang-NullPointerException-空指针异常"><span class="toc-text">1. java.lang.NullPointerException(空指针异常)</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调用了未经初始化的对象或者是不存在的对象"><span class="toc-text">调用了未经初始化的对象或者是不存在的对象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-java-lang-ClassNotFoundException"><span class="toc-text">2. java.lang.ClassNotFoundException　　</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指定的类不存在"><span class="toc-text">指定的类不存在</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#3-java-lang-NumberFormatException"><span class="toc-text">3. java.lang.NumberFormatException</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-java-lang-IndexOutOfBoundsException"><span class="toc-text">4. java.lang.IndexOutOfBoundsException</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组下标越界异常"><span class="toc-text">数组下标越界异常</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#5-java-lang-IllegalArgumentException"><span class="toc-text">5. java.lang.IllegalArgumentException</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法的参数错误"><span class="toc-text">方法的参数错误</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#6-java-lang-IllegalAccessException"><span class="toc-text">6. java.lang.IllegalAccessException</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#没有访问权限"><span class="toc-text">没有访问权限</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#7-java-lang-ArithmeticException"><span class="toc-text">7. java.lang.ArithmeticException</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数学运算异常"><span class="toc-text">数学运算异常</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#8-java-lang-ClassCastException"><span class="toc-text">8. java.lang.ClassCastException</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据类型转换异常"><span class="toc-text">数据类型转换异常</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#9-java-lang-FileNotFoundException"><span class="toc-text">9. java.lang.FileNotFoundException</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件未找到异常"><span class="toc-text">文件未找到异常</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#10-java-lang-ArrayStoreException"><span class="toc-text">10. java.lang.ArrayStoreException</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数组存储异常"><span class="toc-text">数组存储异常</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#11-java-lang-NoSuchMethodException"><span class="toc-text">11. java.lang.NoSuchMethodException</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法不存在异常"><span class="toc-text">方法不存在异常</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#12-java-lang-NoSuchFiledException"><span class="toc-text">12. java.lang.NoSuchFiledException</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#方法不存在异常-1"><span class="toc-text">方法不存在异常</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#13-java-lang-EOFException"><span class="toc-text">13. java.lang.EOFException</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件已结束异常"><span class="toc-text">文件已结束异常</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#14-java-lang-InstantiationException"><span class="toc-text">14. java.lang.InstantiationException</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#实例化异常"><span class="toc-text">实例化异常</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#15-java-lang-InterruptedException"><span class="toc-text">15. java.lang.InterruptedException</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#被中止异常"><span class="toc-text">被中止异常</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#16-java-lang-CloneNotSupportedException"><span class="toc-text">16. java.lang.CloneNotSupportedException</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#不支持克隆异常"><span class="toc-text">不支持克隆异常</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#17-java-lang-OutOfMemoryException"><span class="toc-text">17. java.lang.OutOfMemoryException</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#18-java-lang-NoClassDefFoundException"><span class="toc-text">18. java.lang.NoClassDefFoundException</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#未找到类定义错误"><span class="toc-text">未找到类定义错误</span></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
+    </div>
+</article>
+
+
+
+
+
+
+
+<!-- Footer -->
+<!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <br>
+                <ul class="list-inline text-center">
+                
+                
+                
+
+                
+                    <li>
+                        <a target="_blank" href="http://weibo.com/1911590674">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                
+                    <li>
+                        <a target="_blank"  href="https://github.com/fanfengxiang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                
+
+                
+
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; 樊凤祥 2017
+                    <br>
+                    <span id="busuanzi_container_site_pv" style="font-size: 12px;">PV: <span id="busuanzi_value_site_pv"></span> Times</span>
+                    
+                </p>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/blog.js"></script>
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async("http://Fanfengxiang.github.io/js/jquery.tagcloud.js",function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+<!-- Google Analytics -->
+
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-49627206-1';
+    var _gaDomain = 'huangxuan.me';
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    var _baId = '4cc1f2d8f3067386cc5cdb626a202900';
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?" + _baId;
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+<!-- swiftype -->
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+  (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+  e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install','','2.0.0');
+</script>
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!--wechat title img-->
+<img class="wechat-title-img" src="">
+</body>
+
+</html>
