@@ -187,11 +187,11 @@ p &quot; 选择创建主分区&quot;
 保存所有并退出，分区划分完毕&quot;
 </code></pre><h2 id="3、指定文件系统类型"><a href="#3、指定文件系统类型" class="headerlink" title="3、指定文件系统类型"></a>3、指定文件系统类型</h2><pre><code>注意：一定要先重启，然后再执行一下操作，否则，是认不出分区的，会出错：
 #mkfs -t ext3 /dev/sda3
-</code></pre><h2 id="4-挂载文件系统"><a href="#4-挂载文件系统" class="headerlink" title="4.挂载文件系统"></a>4.挂载文件系统</h2><pre><code>建立一个待挂载目录：
+</code></pre><h2 id="4、挂载文件系统"><a href="#4、挂载文件系统" class="headerlink" title="4、挂载文件系统"></a>4、挂载文件系统</h2><pre><code>建立一个待挂载目录：
 mkdir /home/work
 挂载分区到目录：
 mount /dev/sda3 /home/work
-</code></pre><h2 id="5-开机自动挂载"><a href="#5-开机自动挂载" class="headerlink" title="5.开机自动挂载"></a>5.开机自动挂载</h2><pre><code>步骤4只是手动挂载了文件系统，现在想要以后开机的时候，自动挂载该文件系统
+</code></pre><h2 id="5、开机自动挂载"><a href="#5、开机自动挂载" class="headerlink" title="5、开机自动挂载"></a>5、开机自动挂载</h2><pre><code>步骤4只是手动挂载了文件系统，现在想要以后开机的时候，自动挂载该文件系统
 编辑：vi /etc/fstab
 在该文件最后添加一句：
 /dev/sda3 /home/work ext3 defaults,0 1
@@ -202,6 +202,11 @@ mount /dev/sda3 /home/work
                 
 
                 <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2017/11/30/JAVA/java代码性能优化（持续更新）/" data-toggle="tooltip" data-placement="top"
+                           title="java代码性能优化（持续更新）">&larr; Previous Post</a>
+                    </li>
                     
                     
                     <li class="next">
@@ -241,7 +246,7 @@ mount /dev/sda3 /home/work
 
             <div class="hidden-xs col-sm-3 toc-col">
                 <div class="toc-wrap">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、查看当前磁盘的使用情况"><span class="toc-text">1、查看当前磁盘的使用情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、分区"><span class="toc-text">2、分区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、指定文件系统类型"><span class="toc-text">3、指定文件系统类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-挂载文件系统"><span class="toc-text">4.挂载文件系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-开机自动挂载"><span class="toc-text">5.开机自动挂载</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、查看当前磁盘的使用情况"><span class="toc-text">1、查看当前磁盘的使用情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、分区"><span class="toc-text">2、分区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、指定文件系统类型"><span class="toc-text">3、指定文件系统类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4、挂载文件系统"><span class="toc-text">4、挂载文件系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5、开机自动挂载"><span class="toc-text">5、开机自动挂载</span></a></li></ol>
                 </div>
             </div>
         </div>
