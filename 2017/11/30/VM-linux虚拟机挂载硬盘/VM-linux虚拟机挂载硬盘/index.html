@@ -18,11 +18,11 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.css">
     <title>
         
-        Fanfengxiang&#39;s blog
+        VM-linux虚拟机挂载硬盘｜Fanfengxiang&#39;s blog
         
     </title>
 
-    <link rel="canonical" href="http://Fanfengxiang.github.io/archives/2017/">
+    <link rel="canonical" href="http://Fanfengxiang.github.io/2017/11/30/VM-linux虚拟机挂载硬盘/VM-linux虚拟机挂载硬盘/">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -43,7 +43,7 @@
 <!-- hack iOS CSS :active style -->
 <body ontouchstart="" class="animated fadeIn">
 <!-- Navigation -->
-<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "false" data-istags="false
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top " id="nav-top" data-ispost = "true" data-istags="false
 " data-ishome = "false" >
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -115,160 +115,174 @@
 </script>
 
 <!-- Main Content -->
+
+<!--only post-->
+
+
+<img class="wechat-title-img"
+     src="http://fanfengxiang.github.io/image/title.jpg">
+
+
 <style>
-    .intro-header .site-heading {
-        margin: 50px;
-    }
     
     header.intro-header {
         background-image: url('http://fanfengxiang.github.io/image/title.jpg')
     }
+
     
 </style>
 
-<!-- Page Header -->
 <header class="intro-header">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
-                <div class="site-heading text-center">
-                    <h1>archives</h1>
-                    <span class="subheading">可以根据归档日期检索所有文件</span>
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 text-center">
+                <div class="post-heading">
+                    <h1>VM-linux虚拟机挂载硬盘</h1>
+                    
+                    <span class="meta">
+                         作者 Fanfengxiang
+                        <span>
+                          日期 2017-11-30
+                         </span>
+                    </span>
+                    <div class="tags text-center">
+                        
+                        <a class="tag" href="/tags/#linux,硬盘"
+                           title="linux,硬盘">linux,硬盘</a>
+                        
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="post-title-haojen">
+        <span>
+            VM-linux虚拟机挂载硬盘
+        </span>
+    </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <!-- archive list -->
-            
-				
-				
-				
-					
-					
-					<div class="archive archive-year" data-date="2017">
-						<h2 class="archive-title">
-						<span class="fa fa-archive">
-							<a href="/archives/2017">2017</a>
-						</span>
-						</h2>
-				
-				
-					
-					
-					<div class="archive archive-month" data-date="201711">
-						<h3 class="archive-title">
-							<a href="/archives/2017/11">11</a>
-						</h3>
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/11/30/VM-linux虚拟机挂载硬盘/VM-linux虚拟机挂载硬盘/">
-                        <h4 class="post-title">
-                            VM-linux虚拟机挂载硬盘
-                        </h4>
-                        
-                    </a>
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- Post Container -->
+            <div class="col-lg-8 col-lg-offset-1 col-sm-9 post-container">
+                <p>前提：前一段时间，搞了个虚拟机，centos 6.5 硬盘弄了个30G ，用着用着就满了，就查了一下如何在现有硬盘上扩展磁盘大小。所以内容跟标题可能有些不一样。见谅。主要写了如何扩展现有磁盘大小。</p>
+<h2 id="1、查看当前磁盘的使用情况"><a href="#1、查看当前磁盘的使用情况" class="headerlink" title="1、查看当前磁盘的使用情况"></a>1、查看当前磁盘的使用情况</h2><pre><code>fdisk -l 命令看当前磁盘信息
+现在看到的磁盘信息是未扩容挂载之前的信息，所以磁盘大小还没有更新。
+新增加的磁盘空间并没有显示
+假如现在的硬盘已经有：/dev/sda1，/dev/sda2，/dev/sda5三个分区。
+</code></pre><h2 id="2、分区"><a href="#2、分区" class="headerlink" title="2、分区"></a>2、分区</h2><pre><code>fdisk /dev/sda 命令对磁盘进行分区
+根据帮助提示，键入：n，添加新分区
+此时，fdisk会让你选择添加为逻辑分区（编号从5开始）还是主分区（编号1到4）。
+选择主分区则键入p；选择逻辑分区键入l。
+我们选择主分区于是：键入：
+p &quot; 选择创建主分区&quot;
+此时，fdisk会让你选择主分区的编号，因为上面已经说有了主分区sda1，sda2，那么编号就选3，即要创建的该分区为sda3.键入：
+3
+然后选择该分区的开始值：就是分区的Start
+值（start cylinder）；这里直接按回车，如果您输入了一个非默认的数字，会造成空间浪费；此时键入：w
+&quot;
+保存所有并退出，分区划分完毕&quot;
+</code></pre><h2 id="3、指定文件系统类型"><a href="#3、指定文件系统类型" class="headerlink" title="3、指定文件系统类型"></a>3、指定文件系统类型</h2><pre><code>注意：一定要先重启，然后再执行一下操作，否则，是认不出分区的，会出错：
+#mkfs -t ext3 /dev/sda3
+</code></pre><h2 id="4-挂载文件系统"><a href="#4-挂载文件系统" class="headerlink" title="4.挂载文件系统"></a>4.挂载文件系统</h2><pre><code>建立一个待挂载目录：
+mkdir /home/work
+挂载分区到目录：
+mount /dev/sda3 /home/work
+</code></pre><h2 id="5-开机自动挂载"><a href="#5-开机自动挂载" class="headerlink" title="5.开机自动挂载"></a>5.开机自动挂载</h2><pre><code>步骤4只是手动挂载了文件系统，现在想要以后开机的时候，自动挂载该文件系统
+编辑：vi /etc/fstab
+在该文件最后添加一句：
+/dev/sda3 /home/work ext3 defaults,0 1
+保存，退出。ok，以后就能存储东西到/home/work文件夹下，也就是说，将内容存储在新添加的硬盘上了。
+</code></pre><p>注：其实扩容硬盘的分区挂载和新挂载硬盘差不多，就是继续对扩容后的空间进行分区，其它都是一样的。<br>注：挂载是用ROOT用户进行的，其它用户存储文件到挂载目录需要调整权限。</p>
+
+                <hr>
+                
+
+                <ul class="pager">
+                    
+                    
+                    <li class="next">
+                        <a href="/2017/11/24/JAVA/JAVA常见异常整理（一直更新）/" data-toggle="tooltip" data-placement="top"
+                           title="JAVA常见异常整理（一直更新）">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+                
+
+                
+
+
+                <!--加入新的评论系统-->
+                
+                <!-- 来必力City版安装代码 -->
+                <div id="lv-container" data-id="city" data-uid="">
+                    <script type="text/javascript">
+                        (function(d, s) {
+                            var j, e = d.getElementsByTagName(s)[0];
+
+                            if (typeof LivereTower === 'function') { return; }
+
+                            j = d.createElement(s);
+                            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+                            j.async = true;
+
+                            e.parentNode.insertBefore(j, e);
+                        })(document, 'script');
+                    </script>
+                    <noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
                 </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/11/24/JAVA/JAVA常见异常整理（一直更新）/">
-                        <h4 class="post-title">
-                            JAVA常见异常整理（一直更新）
-                        </h4>
-                        
-                    </a>
+                <!-- City版安装代码已完成 -->
+                
+            </div>
+
+            <div class="hidden-xs col-sm-3 toc-col">
+                <div class="toc-wrap">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1、查看当前磁盘的使用情况"><span class="toc-text">1、查看当前磁盘的使用情况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2、分区"><span class="toc-text">2、分区</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、指定文件系统类型"><span class="toc-text">3、指定文件系统类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-挂载文件系统"><span class="toc-text">4.挂载文件系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-开机自动挂载"><span class="toc-text">5.开机自动挂载</span></a></li></ol>
                 </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-					
-					</div><!--month-->
-					
-					
-					<div class="archive archive-month" data-date="201709">
-						<h3 class="archive-title">
-							<a href="/archives/2017/09">09</a>
-						</h3>
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/09/26/scala学习笔记/scala-学习1/">
-                        <h4 class="post-title">
-                            scala 学习(一)
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/09/26/windows-server-2008-R2-自动关机/">
-                        <h4 class="post-title">
-                            windows server 2008 R2 自动关机
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/09/22/我有一个同事/">
-                        <h4 class="post-title">
-                            我有一个同事
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
-				
-				
-				
-				
-				<div class="one-tag-list">
-                <div class="post-preview">
-                    <a href="/2017/09/22/第一篇博客/">
-                        <h4 class="post-title">
-                            Ambari 离线安装 （1）
-                        </h4>
-                        
-                    </a>
-                </div>
-				<hr>
-				</div>
-            
+            </div>
         </div>
+
+        <div class="row">
+            <!-- Sidebar Container -->
+
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <!-- no hr -->
+                    <h5 class="text-center">
+                        <a href="/tags/">FEATURED TAGS</a>
+                    </h5>
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#linux,硬盘"
+                           title="linux,硬盘">linux,硬盘</a>
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+            </div>
+        </div>
+
     </div>
+</article>
+
+
+
+
+
+
 
 <!-- Footer -->
 <!-- Footer -->
